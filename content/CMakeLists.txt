@@ -6,12 +6,15 @@ qt6_add_qml_module(content
     URI "content"
     VERSION 1.0
     QML_FILES
-
+        App.qml
+#        ViewContact.qml
 
     RESOURCES
         fonts/fonts.txt
-        QML_FILES App.qml
+#        QML_FILES App.qml
         QML_FILES ViewContact.qml
         SOURCES contactDB.h contactDB.cpp
         SOURCES contacts.h contacts.cpp
+        SOURCES contact.h contact.cpp
+        SOURCES contactlistview.h contactlistview.cpp
 )

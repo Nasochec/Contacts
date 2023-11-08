@@ -1,11 +1,8 @@
-// Copyright (C) 2021 The Qt Company Ltd.
-// SPDX-License-Identifier: LicenseRef-Qt-Commercial OR GPL-3.0-only
-
 import QtQuick 6.2
 import QtQuick.Window
 import QtQuick.Layouts
 import QtQuick.Controls
-import projectus1
+import Contacts
 
 ApplicationWindow {
     width: mainScreen.width
@@ -19,57 +16,71 @@ ApplicationWindow {
     }
 
     header: Button{
+            id:button
             text: qsTr("Добавить")
             onClicked:{
                 stackView.push(view)
-                // edit.c =
-                view.onClosed.connect(function () {
-                    // contact.insert(edit.c)
+                button.visible = false
+
+            }
+            Component.onCompleted:{
+                view.onClose.connect(function () {
+                    db.insertContact(null)
+                    console.log(db.items())
                     stackView.pop()
+                    button.visible = true
                 })
             }
         }
     StackView{
         anchors.fill: parent
+//        anchors.margins: {top:20;bottom:20;left:20;right:20}
         // height:parent.height
         id: stackView
         initialItem:Item{
-            id: listView
+//            id: listView
             Label{
                 text: qsTr("Список контаков:")
-
+                font.pixelSize: 50
             }
-            ListModel{
-                id:trashModel
-                ListElement { name: "white"; }
+            Label{
+                y:100
+                text: qsTr("Контактов:")+ db.items()
+                font.pixelSize: 50
             }
-
-//            ListView{
-//                anchors.fill: parent
-//                // width: parent.width
-//                // height: parent.width
-//                model: contactModel
-//                // trashModel
-//                delegate: Rectangle{
-//                    height: 50
-//                    width: parent.width
-//                    color: "red"
-//                    Column{
-//                        Label{
-//                            text: name
-//                        }
-//                        Label{
-//                            text: status
-//                        }
-//                    }
-
-//                    // Label{
-//                    //     text: model.status
-
-//                    // }
-//                }
-
-//            }
+            ListView{
+                id: listView
+                anchors.fill: parent
+                model: db.model
+                delegate: Rectangle{
+                    height: 300
+                    width: 900
+//                        parent.width
+                    color: "red"
+                    Column{
+                        Label{
+                            text: model.itemId
+                            font.pixelSize: 50
+                        }
+                        Label{
+                            text: model.name
+                            font.pixelSize: 50
+                        }
+                        Label{
+                            text: model.status
+                            font.pixelSize: 50
+                        }
+                    }
+                    Button{
+                        text: "X"
+                        font.pixelSize: 50
+                        onClicked: db.deleteContactById(model.itemId)
+                    }
+                }
+                Component.onCompleted: {
+//                    db.model.onDataChanged.connect(listView)
+                }
+            }
         }
     }
 }
