@@ -9,8 +9,9 @@ class Contact : public QObject
     Q_OBJECT
     QML_ELEMENT
     Q_PROPERTY(qint32 itemId READ getItemId NOTIFY dataChanged CONSTANT FINAL)
-    Q_PROPERTY(QString firstName MEMBER firstName NOTIFY dataChanged FINAL)
     Q_PROPERTY(QString lastName MEMBER lastName NOTIFY dataChanged FINAL)
+//    Q_PROPERTY(QString lastName READ getLastName WRITE setLastName NOTIFY lastNameChanged FINAL)
+    Q_PROPERTY(QString firstName MEMBER firstName NOTIFY dataChanged FINAL)
     Q_PROPERTY(QString middleName MEMBER middleName NOTIFY dataChanged FINAL)
     Q_PROPERTY(QString phoneNumber MEMBER phoneNumber NOTIFY dataChanged FINAL)
     Q_PROPERTY(QString homeNumber MEMBER homeNumber NOTIFY dataChanged FINAL)
@@ -18,10 +19,10 @@ class Contact : public QObject
     Q_PROPERTY(QString status MEMBER status NOTIFY dataChanged FINAL)
 public:
   explicit Contact(QObject *parent = nullptr, qint32 itemId = -1,
-                   QString firstName = nullptr, QString lastName = nullptr,
-                   QString middleName = nullptr, QString phoneNumber = nullptr,
-                   QString homeNumber = nullptr, QString address = nullptr,
-                   QString status = nullptr);
+                   QString lastName = "", QString firstName = "",
+                   QString middleName = "", QString phoneNumber = "",
+                   QString homeNumber = "", QString address = "",
+                   QString status = "");
   qint32 getItemId() const;
 //  QString getFirstName() const;
 //  void setFirstName(QString firstName);
@@ -44,8 +45,11 @@ public:
     QString homeNumber;
     QString address;
     QString status;
+public slots:
+//    Q_INVOKABLE static Contact* getEmptyInstance();
 signals:
     void dataChanged();
+//    void lastNameChanged();
 private:
     qint32 itemId;
 

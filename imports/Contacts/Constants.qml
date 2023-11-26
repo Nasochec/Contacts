@@ -9,9 +9,13 @@ QtObject {
     property string relativeFontDirectory: "fonts"
 
     /* Edit this comment to add your custom font */
+    readonly property font smallFont: Qt.font({
+                                             family: Qt.application.font.family,
+                                             pixelSize: Qt.application.font.pixelSize * 1.5
+                                         })
     readonly property font font: Qt.font({
                                              family: Qt.application.font.family,
-                                             pixelSize: Qt.application.font.pixelSize * 5
+                                             pixelSize: Qt.application.font.pixelSize * 2
                                          })
     readonly property font largeFont: Qt.font({
                                                   family: Qt.application.font.family,
@@ -20,6 +24,7 @@ QtObject {
 
     readonly property color backgroundColor: "#c2c2c2"
 
+//    readonly property color rec
 
     property StudioApplication application: StudioApplication {
         fontPath: Qt.resolvedUrl("../../content/" + relativeFontDirectory)

@@ -10,6 +10,7 @@
 #include "import_qml_plugins.h"
 #include "content/contact.h"
 #include "content/contactDB.h"
+#include "content/actions.h"
 
 int main(int argc, char *argv[])
 {
@@ -18,11 +19,15 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     qmlRegisterType<Contact>("Contact",1,0,"Contact");
+//    qmlRegisterUncreatableType<ContactFactory>("ContactFactory",1,0,"ContactFactory","For creation of instance of Contact");
 
     QQmlApplicationEngine engine;
 
-    ContactDB db = ContactDB();
-    engine.rootContext()->setContextProperty(QStringLiteral("db"),&db);
+    ContactDB* db = ContactDB::instance;
+    engine.rootContext()->setContextProperty(QStringLiteral("db"),db);
+
+    Actions* act = new Actions();
+    engine.rootContext()->setContextProperty(QStringLiteral("action"),act);
 
     const QUrl url(u"qrc:Main/main.qml"_qs);
     QObject::connect(

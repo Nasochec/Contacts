@@ -51,11 +51,11 @@ QVariant Contacts::data(const QModelIndex &index, int role) const {
 }
 
 void Contacts::setData(QVector<ContactListView*>* data) {
-    if(m_data->length()>0)
+    if(m_data!=NULL &&  m_data->length()>0)
     {
         beginRemoveRows(QModelIndex(),0,m_data->length()-1);
         delete m_data;
-        m_data=NULL;
+        m_data = NULL;
         endRemoveRows();
     }
     if(data->length()>0){

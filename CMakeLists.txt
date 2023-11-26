@@ -13,7 +13,11 @@ if (Qt6_VERSION VERSION_GREATER_EQUAL 6.3)
     qt_standard_project_setup()
 endif()
 
-qt_add_executable(ContactsApp src/main.cpp)
+#set(app_icon_resource_windows "${CMAKE_CURRENT_SOURCE_DIR}/resources/icon.jpg")${app_icon_resource_windows}
+
+qt_add_executable(ContactsApp src/main.cpp )
+
+set_property(TARGET ContactsApp APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/android)
 
 qt_add_resources(ContactsApp "configuration"
     PREFIX "/"

@@ -4,37 +4,45 @@
 #include <QObject>
 #include <QQmlEngine>
 #include <QtSql/QSqlDatabase>
+
 #include "contact.h"
 #include "contacts.h"
 #include "contactlistview.h"
 
+
 class ContactDB : public QObject {
     Q_OBJECT
-    //    QML_ELEMENT
     Q_PROPERTY(QAbstractListModel* model READ getModel NOTIFY modelChanged )
-    Q_PROPERTY(QString nameFilter MEMBER m_nameFilter NOTIFY nameFilterChanged FINAL)
-    Q_PROPERTY(QString statusFilter MEMBER m_statusFilter NOTIFY statusFilterChanged FINAL)
 public:
-    explicit ContactDB(QObject *parent = nullptr);
+//    static ContactDB* getInstance();
     QAbstractListModel* getModel();
-
+    static ContactDB* instance;
 signals:
     void dataChanged();
     void modelChanged();
-    void nameFilterChanged();
-    void statusFilterChanged();
 public slots:
     qint32 items();
+    Contact* getContact(qint32 id);
+    QVector<Contact*>* getByStatus(QString status);
     void insertContact(Contact *contact);
-//    void deleteContact(Contact *contact);
     void deleteContactById(qint32 itemId);
-//    void editContact(Contact *contact);
+    void editContact(Contact *contact);
+    Contact* getEmptyContact();
+    void sortByName();
+    void sortByStatus();
+protected:
 
 private:
+
+    explicit ContactDB(QObject *parent = nullptr);
+    enum class SortBy{
+        Name,
+        Status
+    };
     static const QString tableName;
-    Contacts *model = new Contacts();;
-    QString m_nameFilter = "", m_statusFilter = "";
+    Contacts *model = new Contacts();
     QSqlDatabase db;
+    SortBy sort = SortBy::Name;
     void connect();
     void createTable();
     void fillModel();

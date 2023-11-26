@@ -11,10 +11,12 @@ qt6_add_qml_module(content
 
     RESOURCES
         fonts/fonts.txt
-#        QML_FILES App.qml
         QML_FILES ViewContact.qml
         SOURCES contactDB.h contactDB.cpp
         SOURCES contacts.h contacts.cpp
         SOURCES contact.h contact.cpp
         SOURCES contactlistview.h contactlistview.cpp
+        SOURCES actions.h actions.cpp
+        QML_FILES SortChoose.qml
+        QML_FILES EventCreation.qml
 )
