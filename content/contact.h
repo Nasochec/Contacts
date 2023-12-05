@@ -10,7 +10,6 @@ class Contact : public QObject
     QML_ELEMENT
     Q_PROPERTY(qint32 itemId READ getItemId NOTIFY dataChanged CONSTANT FINAL)
     Q_PROPERTY(QString lastName MEMBER lastName NOTIFY dataChanged FINAL)
-//    Q_PROPERTY(QString lastName READ getLastName WRITE setLastName NOTIFY lastNameChanged FINAL)
     Q_PROPERTY(QString firstName MEMBER firstName NOTIFY dataChanged FINAL)
     Q_PROPERTY(QString middleName MEMBER middleName NOTIFY dataChanged FINAL)
     Q_PROPERTY(QString phoneNumber MEMBER phoneNumber NOTIFY dataChanged FINAL)
@@ -24,20 +23,6 @@ public:
                    QString homeNumber = "", QString address = "",
                    QString status = "");
   qint32 getItemId() const;
-//  QString getFirstName() const;
-//  void setFirstName(QString firstName);
-//  QString getLastName() const;
-//  void setLastName(QString lastName);
-//  QString getMiddleName() const;
-//  void setMiddleName(QString middleName);
-//  QString getPhoneNumber() const;
-//  void setPhoneNumber(QString phoneNumber);
-//  QString getHomeNumber() const;
-//  void setHomeNumber(QString homeNumber);
-//  QString getAddress() const;
-//  void setAddress(QString address);
-//  QString getStatus() const;
-//  void setStatus(QString status);
     QString firstName;
     QString lastName;
     QString middleName;
@@ -46,10 +31,8 @@ public:
     QString address;
     QString status;
 public slots:
-//    Q_INVOKABLE static Contact* getEmptyInstance();
 signals:
     void dataChanged();
-//    void lastNameChanged();
 private:
     qint32 itemId;
 

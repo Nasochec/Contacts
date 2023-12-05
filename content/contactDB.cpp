@@ -31,8 +31,6 @@ void ContactDB::connect()
         db.close();
     else
         qDebug()<<db.isOpenError();
-    //    db.setUserName("contacts");.sqlite
-    //    db.setPassword("contacts");
 }
 
 void ContactDB::createTable()
