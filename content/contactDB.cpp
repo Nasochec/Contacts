@@ -5,11 +5,11 @@
 #include <QtSql/QSqlError>
 #include <QtSql/QSqlDriver>
 
-ContactDB* ContactDB::instance = new ContactDB();
+ContactDB* ContactDB::instance = nullptr;
 
-const QString ContactDB::tableName = "Contacts";
-
-static ContactDB* getInstance(){
+ContactDB* ContactDB::getInstance(){
+    if(ContactDB::instance == NULL)
+        ContactDB::instance = new ContactDB();
     return ContactDB::instance;
 }
 
@@ -27,7 +27,11 @@ void ContactDB::connect()
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setHostName("gladkov");
     db.setDatabaseName("contactsdb.sqlite");
-    //    db.setUserName("contacts");
+    if(db.open())
+        db.close();
+    else
+        qDebug()<<db.isOpenError();
+    //    db.setUserName("contacts");.sqlite
     //    db.setPassword("contacts");
 }
 

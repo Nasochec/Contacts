@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    ContactDB* db = ContactDB::instance;
+    ContactDB* db = ContactDB::getInstance();
     engine.rootContext()->setContextProperty(QStringLiteral("db"),db);
 
     Actions* act = new Actions();

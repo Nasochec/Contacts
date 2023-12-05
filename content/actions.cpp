@@ -1,5 +1,5 @@
 #include "actions.h"
-#include "contactDB.h""
+#include "contactDB.h"
 #include <QFile>
 #include <QDebug>
 #include <QFlags>
@@ -32,5 +32,4 @@ void Actions::invite(QString status,QString eventName){
 
         f->close();
     }
-
 }

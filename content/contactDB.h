@@ -14,7 +14,8 @@ class ContactDB : public QObject {
     Q_OBJECT
     Q_PROPERTY(QAbstractListModel* model READ getModel NOTIFY modelChanged )
 public:
-//    static ContactDB* getInstance();
+    explicit ContactDB(QObject *parent = nullptr);
+    static ContactDB* getInstance();
     QAbstractListModel* getModel();
     static ContactDB* instance;
 signals:
@@ -34,7 +35,7 @@ protected:
 
 private:
 
-    explicit ContactDB(QObject *parent = nullptr);
+
     enum class SortBy{
         Name,
         Status
